@@ -5,12 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class LoansController {
+public class NoticesController {
 
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
-    @GetMapping("/myLoans")
-    public String getLoans() {
-        return "Hello from LoansController";
+    
+    @GetMapping("/notices")
+    public String getNotices() {
+        return "Hello from NoticesController";
     }
-
 }
