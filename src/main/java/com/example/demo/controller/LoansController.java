@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoansController {
 
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/myLoans")
     public String getLoans() {
         return "Hello from LoansController";
