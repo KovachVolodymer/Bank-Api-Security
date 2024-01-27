@@ -16,6 +16,7 @@ public class LoginController {
     @Autowired
     CustomerRepository customerRepository;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")

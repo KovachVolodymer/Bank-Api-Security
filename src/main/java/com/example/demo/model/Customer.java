@@ -17,12 +17,9 @@ public class Customer {
     @Id
     private String id;
 
-    private String username;
     private String password;
     private String email;
     private String role;
 
 
-    public Customer(String userName, String password, List<GrantedAuthority> authorities) {
-    }
 }
