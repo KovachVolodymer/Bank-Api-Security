@@ -35,7 +35,30 @@ public class LoginController {
                     .body("An exception "+exception.getMessage());
         }
         return response;
-
     }
+
+    @PostMapping("/login")
+    public ResponseEntity loginUser(@RequestBody Customer customer)
+    {
+        ResponseEntity response=null;
+        Customer savedCustomer=null;
+        try {
+            savedCustomer=customerRepository.findByEmail(customer.getEmail()).get(0);
+            if(passwordEncoder.matches(customer.getPassword(),savedCustomer.getPassword()))
+            {
+                response = ResponseEntity.status(HttpStatus.CREATED)
+                        .body("Given user details are successfully login");
+            }else{
+                response = ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("Given user details are not valid");
+            }
+        }catch (Exception exception)
+        {
+            response=ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An exception "+exception.getMessage());
+        }
+        return response;
+    }
+
 
 }

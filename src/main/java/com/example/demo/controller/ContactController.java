@@ -10,4 +10,11 @@ public class ContactController {
     public String getContact() {
         return "Hello from ContactController";
     }
+
+    @GetMapping("/contact2")
+    public String getContact2() {
+        return "Hello from ContactController2";
+    }
+
+
 }

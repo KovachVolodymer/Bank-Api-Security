@@ -31,6 +31,22 @@ public class CustomerController {
         return ResponseEntity.ok(customer1.get().toString());
     }
 
+    @PatchMapping("/id")
+    public ResponseEntity<String> updatePartialUser(@RequestParam String id, @RequestBody Customer customer)
+    {
+        Optional<Customer> customer1 = customerRepository.findById(id);
+        if(customer.getEmail()!=null)
+        {
+            customer1.get().setEmail(customer.getEmail());
+        }
+        if(customer.getPassword()!=null)
+        {
+            customer1.get().setPassword(customer.getPassword());
+        }
+        customerRepository.save(customer1.get());
+        return ResponseEntity.ok(customer1.get().toString());
+    }
+
     @DeleteMapping("/id")
     public ResponseEntity<String> deleteUser(@RequestParam String id)
     {
