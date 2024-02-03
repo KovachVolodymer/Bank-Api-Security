@@ -9,9 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @Document(collection = "customer")
 public class Accounts {
+
     @Id
     private String customerId;
-
 
     private String accountNumber;
     private String accountType;
