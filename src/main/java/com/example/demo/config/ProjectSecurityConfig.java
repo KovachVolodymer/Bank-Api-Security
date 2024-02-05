@@ -20,8 +20,7 @@ public class ProjectSecurityConfig {
                         .requestMatchers("/notices","/contact","/register").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
-                .rememberMe(Customizer.withDefaults());
+                .formLogin(Customizer.withDefaults());
 
         return http.build();
     }

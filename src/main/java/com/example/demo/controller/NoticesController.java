@@ -1,20 +1,20 @@
 package com.example.demo.controller;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import com.example.demo.model.Notice;
 import com.example.demo.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+
 
 @RestController
 public class NoticesController {
-
 
     @Autowired
     private NoticeRepository noticeRepository;
@@ -30,4 +30,5 @@ public class NoticesController {
             return null;
         }
     }
+
 }
