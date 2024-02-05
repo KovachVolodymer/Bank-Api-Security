@@ -1,20 +1,35 @@
 package com.example.demo.controller;
 
+<<<<<<< HEAD
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+=======
+>>>>>>> c5af303323aff78faaab538d5168eb89b698b171
 import com.example.demo.model.Notice;
 import com.example.demo.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+=======
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+>>>>>>> c5af303323aff78faaab538d5168eb89b698b171
 
 @RestController
 public class NoticesController {
+
+    @Autowired
+    private NoticeRepository noticeRepository;
 
     @Autowired
     private NoticeRepository noticeRepository;
