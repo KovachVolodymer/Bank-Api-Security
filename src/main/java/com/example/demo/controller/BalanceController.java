@@ -27,37 +27,5 @@ public class BalanceController {
     }
 
     // Add a new endpoint to get the balance details for a specific account
-    @GetMapping("/accountBalance")
-    public List<AccountTransactions> getAccountBalanceDetails(@RequestParam String id) {
-        List<AccountTransactions> accountTransactions = accountTransactionsRepository.
-                findByAccountIdOrderByTransactionDtDesc(id);
-        if (accountTransactions != null ) {
-            return accountTransactions;
-        }else {
-            return null;
-        }
-    }
-
-    @PostMapping("/addBalance")
-    public String addBalance(@RequestParam String id, @RequestParam String amount) {
-        AccountTransactions accountTransactions = new AccountTransactions();
-        accountTransactions.setAccountId(id);
-        accountTransactions.setTransactionAmount(Double.parseDouble(amount));
-        accountTransactions.setTransactionType("Credit");
-        accountTransactionsRepository.save(accountTransactions);
-        return "Amount added successfully";
-    }
-
-    @PostMapping("/withdrawBalance")
-    public String withdrawBalance(@RequestParam String id, @RequestParam String amount) {
-        AccountTransactions accountTransactions = new AccountTransactions();
-        accountTransactions.setAccountId(id);
-        accountTransactions.setTransactionAmount(Double.parseDouble(amount));
-        accountTransactions.setTransactionType("Debit");
-        accountTransactionsRepository.save(accountTransactions);
-        return "Amount withdrawn successfully";
-    }
-
-
 
 }
