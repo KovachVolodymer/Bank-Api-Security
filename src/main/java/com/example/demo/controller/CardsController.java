@@ -25,71 +25,7 @@ public class CardsController {
         }
     }
 
-    // Add a new endpoint to get the card details for a specific account
 
-    @PostMapping("/addCard")
-    public String addCard(@RequestParam String id, @RequestParam String cardNumber, @RequestParam String cardType) {
-        Cards card = new Cards();
-        card.setCustomerId(id);
-        card.setCardNumber(cardNumber);
-        card.setCardType(cardType);
-        cardsRepository.save(card);
-        return "Card added successfully";
-    }
-
-    @PostMapping("/deleteCard")
-    public String deleteCard(@RequestParam String id, @RequestParam String cardNumber) {
-        cardsRepository.deleteByCustomerIdAndCardNumber(id, cardNumber);
-        return "Card deleted successfully";
-    }
-
-    @PostMapping("/updateCard")
-    public String updateCard(@RequestParam String id, @RequestParam String cardNumber, @RequestParam String cardType) {
-        Cards card = cardsRepository.findByCustomerIdAndCardNumber(id, cardNumber);
-        if (card != null) {
-            card.setCardType(cardType);
-            cardsRepository.save(card);
-            return "Card updated successfully";
-        } else {
-            return "Card not found";
-        }
-    }
-
-    @PostMapping("/blockCard")
-    public String blockCard(@RequestParam String id, @RequestParam String cardNumber) {
-        Cards card = cardsRepository.findByCustomerIdAndCardNumber(id, cardNumber);
-        if (card != null) {
-            card.setCardStatus("Blocked");
-            cardsRepository.save(card);
-            return "Card blocked successfully";
-        } else {
-            return "Card not found";
-        }
-    }
-
-    @PostMapping("/unblockCard")
-    public String unblockCard(@RequestParam String id, @RequestParam String cardNumber) {
-        Cards card = cardsRepository.findByCustomerIdAndCardNumber(id, cardNumber);
-        if (card != null) {
-            card.setCardStatus("Active");
-            cardsRepository.save(card);
-            return "Card unblocked successfully";
-        } else {
-            return "Card not found";
-        }
-    }
-
-    @PostMapping("/replaceCard")
-    public String replaceCard(@RequestParam String id, @RequestParam String cardNumber, @RequestParam String newCardNumber) {
-        Cards card = cardsRepository.findByCustomerIdAndCardNumber(id, cardNumber);
-        if (card != null) {
-            card.setCardNumber(newCardNumber);
-            cardsRepository.save(card);
-            return "Card replaced successfully";
-        } else {
-            return "Card not found";
-        }
-    }
 
 
 
