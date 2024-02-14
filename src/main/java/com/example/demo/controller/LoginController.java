@@ -25,13 +25,14 @@ public class LoginController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody Customer customer) {
-        Customer savedCustomer = null;
+    public ResponseEntity registerUser(@RequestBody Customer customer) {
+        Customer savedCustomer;
         ResponseEntity response = null;
         try {
             String hashPwd = passwordEncoder.encode(customer.getPassword());
             customer.setPassword(hashPwd);
             customer.setCreateDt(String.valueOf(new Date(System.currentTimeMillis())));
+            customer.setAuthorities(null);
             savedCustomer = customerRepository.save(customer);
             if (savedCustomer.getId() != null){
                 response = ResponseEntity

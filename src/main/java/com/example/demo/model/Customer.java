@@ -1,16 +1,14 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.security.core.GrantedAuthority;
 
-import java.util.List;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -31,8 +29,10 @@ public class Customer {
     private String mobileNumber;
     private String createDt;
 
-    @DBRef
-    @JsonIgnore
-    private Set<Authority> authorities;
+    private Set<Authority> authorities=new HashSet<>();
+
+    public Customer() {
+    }
+
 
 }

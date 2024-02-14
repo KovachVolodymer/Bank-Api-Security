@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Authority;
 import com.example.demo.model.Customer;
 import com.example.demo.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class CustomerController {
@@ -54,5 +57,17 @@ public class CustomerController {
         customerRepository.delete(customer.get());
         return ResponseEntity.ok("Deleted");
     }
+
+    @PatchMapping("/addRole/{id}")
+    public ResponseEntity<String> updatePassword(@PathVariable String id, @RequestBody Authority authority) {
+        Optional<Customer> customer = customerRepository.findById(id);
+        Set<Authority> authorities = customer.get().getAuthorities();
+        authorities.add(authority);
+        customer.get().setAuthorities(authorities);
+        customerRepository.save(customer.get());
+        return ResponseEntity.ok(customer.get().toString());
+    }
+
+
 
 }

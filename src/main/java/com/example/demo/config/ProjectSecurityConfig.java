@@ -30,22 +30,23 @@ public class ProjectSecurityConfig {
         requestHandler.setCsrfRequestAttributeName("_csrf");
 
         http.securityContext((context) -> context
-                        .requireExplicitSave(false))
+                       .requireExplicitSave(false))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
-                    @Override
-                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                        CorsConfiguration corsConfiguration = new CorsConfiguration();
-                        corsConfiguration.setAllowedOrigins(Collections.singletonList("https://example.com"));
-                        corsConfiguration.setAllowedMethods(Arrays.asList("GET","POST"));
-                        return corsConfiguration;
-                    }
-                })).csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/contact", "/register")
+
+                .cors(corsCustomizer -> corsCustomizer.configurationSource(request -> {
+                    CorsConfiguration corsConfiguration = new CorsConfiguration();
+                    corsConfiguration.setAllowedOrigins(Collections.singletonList("https://example.com"));
+                    corsConfiguration.setAllowedMethods(Arrays.asList("GET","POST"));
+                    return corsConfiguration;
+
+                })).csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler)
+                        .ignoringRequestMatchers("/contact", "/register", "/addRole/**")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/notices","/contact","/register").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/notices","/contact","/register","/addRole/**").permitAll()
+                        .anyRequest().permitAll()
                 )
                 .formLogin(Customizer.withDefaults());
 
