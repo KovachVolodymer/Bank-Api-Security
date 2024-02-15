@@ -36,16 +36,18 @@ public class ProjectSecurityConfig {
                 .cors(corsCustomizer -> corsCustomizer.configurationSource(request -> {
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
                     corsConfiguration.setAllowedOrigins(Collections.singletonList("https://example.com"));
-                    corsConfiguration.setAllowedMethods(Arrays.asList("GET","POST"));
+                    corsConfiguration.setAllowedMethods(Arrays.asList("GET","POST","Patch","DELETE"));
                     return corsConfiguration;
 
                 })).csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler)
-                        .ignoringRequestMatchers("/contact", "/register", "/addRole/**")
+                        .ignoringRequestMatchers("/contact", "/register","/addRole/**")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
 
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/notices","/contact","/register","/addRole/**").permitAll()
+                        .requestMatchers("/notices","/contact","/register","addRole/**").permitAll()
+                        .requestMatchers("/all").hasRole("ADMIN")
+                        .requestMatchers("/idGet/**").hasRole("USER")
                         .anyRequest().permitAll()
                 )
                 .formLogin(Customizer.withDefaults());

@@ -17,8 +17,15 @@ public class CustomerController {
 
     @Autowired
     CustomerRepository customerRepository;
-    @GetMapping("/id")
-    public ResponseEntity<String> getUser(@RequestParam String id)
+
+    @GetMapping("/all")
+    public ResponseEntity<Iterable<Customer>> getAllUsers()
+    {
+        return ResponseEntity.ok(customerRepository.findAll());
+    }
+
+    @GetMapping("/idGet/{id}")
+    public ResponseEntity<String> getUser(@PathVariable String id)
     {
         Optional<Customer> customer = customerRepository.findById(id);
         return ResponseEntity.ok(customer.get().toString());
@@ -50,7 +57,7 @@ public class CustomerController {
         return ResponseEntity.ok(customer1.get().toString());
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/idDelete")
     public ResponseEntity<String> deleteUser(@RequestParam String id)
     {
         Optional<Customer> customer = customerRepository.findById(id);
