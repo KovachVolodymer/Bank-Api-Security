@@ -2,7 +2,7 @@ package com.example.demo.config;
 
 import com.example.demo.filter.CsrfCookieFilter;
 import com.example.demo.filter.RequestValidationBeforeFilter;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.demo.filter.AuthoritiesLoggingAtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -16,7 +16,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -46,6 +45,7 @@ public class ProjectSecurityConfig {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .addFilterBefore(new RequestValidationBeforeFilter(),UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
 
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/notices","/contact","/register","addRole/**").permitAll()
