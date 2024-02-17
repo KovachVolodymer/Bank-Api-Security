@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import com.example.demo.filter.AuthoritiesLoggingAfterFilter;
 import com.example.demo.filter.CsrfCookieFilter;
 import com.example.demo.filter.RequestValidationBeforeFilter;
 import com.example.demo.filter.AuthoritiesLoggingAtFilter;
@@ -45,7 +46,8 @@ public class ProjectSecurityConfig {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .addFilterBefore(new RequestValidationBeforeFilter(),UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
+                .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
 
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/notices","/contact","/register","addRole/**").permitAll()
