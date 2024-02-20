@@ -1,9 +1,6 @@
 package com.example.demo.config;
 
-import com.example.demo.filter.AuthoritiesLoggingAfterFilter;
-import com.example.demo.filter.CsrfCookieFilter;
-import com.example.demo.filter.RequestValidationBeforeFilter;
-import com.example.demo.filter.AuthoritiesLoggingAtFilter;
+import com.example.demo.filter.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -48,6 +45,7 @@ public class ProjectSecurityConfig {
                 .addFilterBefore(new RequestValidationBeforeFilter(),UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
                 .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new JWTTokenGeneratorFilter(),BasicAuthenticationFilter.class)
 
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/notices","/contact","/register","addRole/**").permitAll()
