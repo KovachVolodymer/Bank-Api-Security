@@ -4,6 +4,7 @@ import com.example.demo.model.Cards;
 import com.example.demo.repository.CardsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -14,6 +15,7 @@ public class CardsController {
     @Autowired
     private CardsRepository cardsRepository;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/myCards")
     public List<Cards> getCardDetails(@RequestParam String id) {
         List<Cards> cards = cardsRepository.findByCustomerId(id);
@@ -22,12 +24,6 @@ public class CardsController {
         }else {
             return null;
         }
-    }
-
-    @GetMapping("/all")
-    public List<Object> findAll(){
-        List<Cards> cards= cardsRepository.findAll();
-        return Collections.singletonList(cards);
     }
 
     @PostMapping("/add")

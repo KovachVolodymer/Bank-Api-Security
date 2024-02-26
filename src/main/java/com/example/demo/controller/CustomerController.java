@@ -5,6 +5,7 @@ import com.example.demo.model.Customer;
 import com.example.demo.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ public class CustomerController {
     @Autowired
     CustomerRepository customerRepository;
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public ResponseEntity<Iterable<Customer>> getAllUsers()
     {

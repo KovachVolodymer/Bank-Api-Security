@@ -4,7 +4,9 @@ import com.example.demo.filter.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +23,7 @@ import java.util.Collections;
 
 
 @Configuration
+@EnableMethodSecurity
 public class ProjectSecurityConfig {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -50,7 +53,6 @@ public class ProjectSecurityConfig {
 
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/notices","/contact","/register","addRole/**").permitAll()
-                        .requestMatchers("/all").hasRole("ADMIN")
                         .requestMatchers("/idGet/**").hasRole("USER")
                         .anyRequest().permitAll()
                 )
